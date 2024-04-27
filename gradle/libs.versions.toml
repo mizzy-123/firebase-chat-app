@@ -12,6 +12,7 @@ constraintlayout = "2.1.4"
 google-services = "4.4.1"
 firebase-bom = "32.8.1"
 viewbinding = "8.2.2"
+glide = "4.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,6 +27,8 @@ androidx-databinding = { group = "androidx.databinding", name = "viewbinding", v
 
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom"}
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
