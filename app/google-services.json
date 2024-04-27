@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "241562056764",
+    "project_id": "chat-67e63",
+    "storage_bucket": "chat-67e63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241562056764:android:190464c719d7cd44972b39",
+        "android_client_info": {
+          "package_name": "com.manifestasi.facechat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBigCqpF5xeY8VcOJ0eULhAI3KXUHzvn3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
