@@ -5,7 +5,7 @@ import com.google.firebase.firestore.Query
 import com.manifestasi.facechat.firebase.Firestore
 
 object QueryFirebase {
-    fun getLastChatUser(id: String, callback: (String) -> Unit) {
+    fun getLastChatUser(id: String, callback: (String, String) -> Unit) {
         val instance = Firestore.instance
         instance.getCollection()
             .document(id)
@@ -16,7 +16,7 @@ object QueryFirebase {
                 if (error != null) {
                     // Tangani kesalahan saat mendapatkan snapshot
                     Log.e("Firestore", "Error getting documents last chat user: $error")
-                    callback("") // Panggil callback dengan nilai default jika terjadi kesalahan
+                    callback("", "") // Panggil callback dengan nilai default jika terjadi kesalahan
                     return@addSnapshotListener
                 }
 
@@ -24,10 +24,11 @@ object QueryFirebase {
                     val document = snapshot.documents[0]
                     val data = document.data
                     val message = data?.get("message")?.toString() ?: ""
+                    val user = data?.get("user")?.toString() ?: ""
                     Log.e("Firestore", "lastchat berhasil: $message")
-                    callback(message) // Panggil callback dengan nilai message yang diperoleh
+                    callback(message, user) // Panggil callback dengan nilai message yang diperoleh
                 } else {
-                    callback("") // Panggil callback dengan nilai default jika tidak ada data
+                    callback("", "") // Panggil callback dengan nilai default jika tidak ada data
                 }
             }
     }

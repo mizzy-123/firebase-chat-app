@@ -1,5 +1,6 @@
 package com.manifestasi.facechat
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.manifestasi.facechat.adapter.ListChatAdapter
 import com.manifestasi.facechat.databinding.ActivityMainBinding
 import com.manifestasi.facechat.firebase.Firestore
 import com.manifestasi.facechat.firebase.data.DataChat
+import com.manifestasi.facechat.firebase.data.DataStatusChat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -46,10 +48,12 @@ class MainActivity : AppCompatActivity() {
                         if (data != null) {
                             // Coba mengonversi nilai status ke Integer
                             val status = data["status"] as? Long
+                            val timestamp = data["timestamp"]
                             if (status != null) {
                                 val dataChat = DataChat(
                                     id = id,
-                                    status = status.toInt()
+                                    status = status.toInt(),
+                                    timestamp = timestamp.toString().trim().toLong()
                                 )
                                 chatList.add(dataChat)
                             } else {
@@ -72,5 +76,15 @@ class MainActivity : AppCompatActivity() {
         recycler.layoutManager = LinearLayoutManager(this)
         listChatAdapter = ListChatAdapter(chatList)
         recycler.adapter = listChatAdapter
+
+        listChatAdapter.setOnClickCallback(object : ListChatAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: DataChat, position: Int) {
+                val intent = Intent(this@MainActivity, DetailChatActivity::class.java)
+                intent.putExtra(DetailChatActivity.EXTRA_ID, data.id)
+                intent.putExtra(DetailChatActivity.EXTRA_TIMESTAMP, data.timestamp)
+                startActivity(intent)
+            }
+
+        })
     }
 }

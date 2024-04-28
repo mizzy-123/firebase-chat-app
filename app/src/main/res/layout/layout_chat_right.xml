@@ -30,13 +30,12 @@
             android:textColor="#222"
             android:textSize="17sp" />
 
-        <TextClock
+        <TextView
             android:id="@+id/msg_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/text"
-            android:layout_toEndOf="@+id/text"
-            android:text="1:30 P.M."
+            android:layout_below="@+id/text"
+            android:text="1:30 PM"
             android:textColor="#888" />
 
     </RelativeLayout>

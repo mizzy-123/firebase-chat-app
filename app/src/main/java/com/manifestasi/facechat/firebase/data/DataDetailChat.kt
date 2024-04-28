@@ -1,7 +1,7 @@
 package com.manifestasi.facechat.firebase.data
 
-data class DataChat(
-    val id: String,
-    val status: Int,
+data class DataDetailChat(
+    val user: String,
+    val message: String,
     val timestamp: Number
 )
