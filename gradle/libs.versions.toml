@@ -13,6 +13,8 @@ google-services = "4.4.1"
 firebase-bom = "32.8.1"
 viewbinding = "8.2.2"
 glide = "4.11.0"
+firebase-messaging = "23.4.1"
+firebase-messaging-directboot = "20.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -27,6 +29,8 @@ androidx-databinding = { group = "androidx.databinding", name = "viewbinding", v
 
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom"}
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebase-messaging" }
+firebase-messaging-directboot = { group = "com.google.firebase", name = "firebase-messaging-directboot", version.ref = "firebase-messaging-directboot" }
 
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 
