@@ -1,6 +1,7 @@
 package com.manifestasi.facechat
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -13,11 +14,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.Query
+import com.google.firebase.messaging.FirebaseMessaging
 import com.manifestasi.facechat.adapter.ListChatAdapter
 import com.manifestasi.facechat.databinding.ActivityMainBinding
 import com.manifestasi.facechat.firebase.Firestore
 import com.manifestasi.facechat.firebase.data.DataChat
 import com.manifestasi.facechat.firebase.data.DataStatusChat
+import com.manifestasi.facechat.firebase.data.DataToken
+import java.util.UUID
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -32,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         requestRuntimePermission()
         firestore = Firestore.instance
         chatList = ArrayList()
+
+        firebaseToken()
 
         firestore.getCollection()
             .orderBy("timestamp", Query.Direction.DESCENDING)
@@ -73,6 +79,39 @@ class MainActivity : AppCompatActivity() {
                     Log.e("Firestore", "Snapshot value is null")
                 }
             }
+    }
+
+    private fun firebaseToken(){
+        val uid = UUID.randomUUID().toString()
+        val sharedPreferences = getSharedPreferences("userpref", Context.MODE_PRIVATE)
+        val cek = sharedPreferences.getBoolean("uid", false)
+
+        if (!cek){
+            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                if (!task.isSuccessful){
+                    Log.w("token", "Fetching FCM registration token failed", task.exception)
+                    return@addOnCompleteListener
+                }
+
+                val token = task.result
+                saveFirebaseToken(token, uid)
+                Log.d("token result", token)
+
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("uid", true)
+                editor.apply()
+            }
+        }
+
+    }
+
+    private fun saveFirebaseToken(token: String, uid: String){
+        firestore.getDatabase()
+            .collection("device")
+            .document(uid)
+            .set(DataToken(
+                token = token
+            ))
     }
 
     private fun showRecyclerList(){
